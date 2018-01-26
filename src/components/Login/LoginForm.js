@@ -8,27 +8,30 @@ import {
   TouchableOpacity,
   StatusBar,
 } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 export default class LoginForm extends Component {
 
   handleLoginEvent = (event) => {
     event.preventDefault();
+    console.log('line 6, LOGIN PAGE');
     // const usernameInputValue = this.refs.usernameInput.value;
     // const passwordInputValue = this.refs.passwordInput.value;
-    const usernameInputValue = 'kyle';
-    const passwordInputValue = 'gibson'
-    this.props.handleLogin(usernameInputValue, passwordInputValue);
+    const username = this.refs.username.value;
+    const password = this.refs.password.value;
+    this.props.handleLogin(username, password);
   }
 
+
   render() {
-    const { navigate } = this.props.navigation;
-    console.log('LoginForm Page state', this.props.state)
+    
     return (<View style={styles.container}>
       <StatusBar
       barStyle="dark-content"
     />
       <TextInput
-        placeholder="username or email"
+        name="username"
+        placeholder="username"
         placeholderTextColor="white"
         returnKeyType="next"
         ref={(input) => this.usernameInput = input}
@@ -40,6 +43,7 @@ export default class LoginForm extends Component {
       />
 
       <TextInput
+        name="password"
         secureTextEntry
         placeholder="password"
         placeholderTextColor="white"
@@ -49,7 +53,7 @@ export default class LoginForm extends Component {
         style={styles.input}
       />
 
-      <TouchableOpacity onPress={() => navigate('MemberArea', {screen: 'MemberArea', user: 'Kyle', props: this.props})} style={styles.buttonContiainer}>
+      <TouchableOpacity onPress={() => Actions.memberarea()} style={styles.buttonContiainer}>
         <Text style={styles.buttonText}>
           Login
         </Text>
