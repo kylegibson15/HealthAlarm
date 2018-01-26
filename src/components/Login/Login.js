@@ -45,7 +45,7 @@ export default class Login extends Component {
 
   getUserInfo(data) {
     console.log('LINE 50 LOGIN', data);
-    axios.post('http://localhost:3000/login', {
+    axios.post('https://health-alarm-db.herokuapp.com/login', {
       data: data
       }).then((response) => {
       console.log(response, 'user logged in');
@@ -156,7 +156,7 @@ export default class Login extends Component {
   }
 
   createAccount(info) {
-    axios.post('http://localhost:3000/new', {data: info}).then(response => {
+    axios.post('https://health-alarm-db.herokuapp.com/new', {data: info}).then(response => {
       console.log(response, 'user added!');
     }).catch(err => {
       console.log(err, 'user not added, try again');
