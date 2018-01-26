@@ -14,7 +14,6 @@ export default class App extends Component < {} > {
     this.state = {
       timePassed: false
     }
-    this.login = this.login.bind(this);
   }
   componentDidMount() {
     setTimeout(() => {
@@ -23,11 +22,6 @@ export default class App extends Component < {} > {
   }
   setTimePassed() {
     this.setState({timePassed: true});
-  }
-  login = (username, password) => {
-    this.setState({username: 'username', password: 'password'});
-
-    alert(username + " " + password)
   }
 
   render() {
@@ -40,9 +34,9 @@ export default class App extends Component < {} > {
         <Scene key="root">
           <Scene hideNavBar key="login" component={Login} title="Login" initial="initial"/>
 
-          <Scene hideNavBar key="signup" component={SignUp} title="SignUp"/>
+          <Scene hideNavBar key="signup" component={SignUp} title="Sign Up"/>
 
-          <Scene key="memberarea" component={MemberArea} title="MemberArea"/>
+          <Scene key="memberarea" component={MemberArea} title="Member Area"/>
         </Scene>
       </Router>;
     }
