@@ -45,10 +45,27 @@ export default class Login extends Component {
 
   getUserInfo(data) {
     console.log('LINE 50 LOGIN', data);
-    axios.get('http://localhost:3000/login', {
+    axios.post('http://localhost:3000/login', {
       data: data
       }).then((response) => {
       console.log(response, 'user logged in');
+      this.setState({
+        first_name: response.data[0].first_name,
+        last_name: response.data[0].last_name,
+        email: response.data[0].email,
+        username: response.data[0].username,
+        password: response.data[0].password,
+        biologicalSex: response.data[0].biologicalSex,
+        Height: response.data[0].Height,
+        Weight: response.data[0].Weight,
+        StepCount: response.data[0].StepCount,
+        DateOfBirth: response.data[0].DateOfBirth,
+        DistanceWalkingRunning: response.data[0].DistanceWalkingRunning,
+        FlightsClimbed: response.data[0].FlightsClimbed,
+        userAge: response.data[0].userAge,
+      });
+      console.log('LINE 53 LOGIN ----->', this.state);
+      Actions.memberarea({state: this.state})
     }).catch((err) => {
       console.log(err, 'user not logged in, try again');
     });
