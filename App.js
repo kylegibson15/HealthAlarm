@@ -5,18 +5,8 @@ import Splash from './src/components/Splash';
 import Login from './src/components/Login/Login';
 import SignUp from './src/components/SignUp/SignUp';
 import MemberArea from './src/components/MemberArea/MemberArea';
+import {Router, Scene} from 'react-native-router-flux';
 
-const HealthAlarm = StackNavigator({
-  Login: {
-    screen: Login,
-  },
-  SignUp: {
-    screen: SignUp
-  },
-  MemberArea: {
-    screen: MemberArea
-  }
-});
 
 export default class App extends Component < {} > {
   constructor(props) {
@@ -45,7 +35,16 @@ export default class App extends Component < {} > {
     if (!this.state.timePassed) {
       return <Splash/>;
     } else {
-      return <HealthAlarm />;
+      return <Router>
+
+        <Scene key="root">
+          <Scene hideNavBar key="login" component={Login} title="Login" initial="initial"/>
+
+          <Scene hideNavBar key="signup" component={SignUp} title="SignUp"/>
+
+          <Scene key="memberarea" component={MemberArea} title="MemberArea"/>
+        </Scene>
+      </Router>;
     }
   }
 }
