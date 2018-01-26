@@ -4,7 +4,7 @@ import SignUpForm from './SignUpForm';
 
 export default class SignUp extends Component {
   render() {
-    const { navigate } = this.props.navigation;
+    console.log('line 7 SIGN UP: ' , this.props);
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <View style={styles.logoContainer}>
@@ -12,7 +12,8 @@ export default class SignUp extends Component {
           <Image style={styles.clock} source={clock}/>
         </View>
         <View style={styles.signUpForm}>
-          <SignUpForm navigation={this.props.navigation}/>
+          <SignUpForm state={this.props} newUserInfo={this.props.newUserInfo} />
+          {/* getHealthData={this.props.getHealthData} */}
         </View>
       </KeyboardAvoidingView>
     )
