@@ -12,19 +12,18 @@ import { Actions } from 'react-native-router-flux';
 
 export default class LoginForm extends Component {
 
-  handleLoginEvent = (event) => {
-    event.preventDefault();
-    console.log('line 6, LOGIN PAGE');
-    // const usernameInputValue = this.refs.usernameInput.value;
-    // const passwordInputValue = this.refs.passwordInput.value;
-    const username = this.refs.username.value;
-    const password = this.refs.password.value;
-    this.props.handleLogin(username, password);
+  handleLogin(){
+    let data = {
+      username: this.usernameInputValue,
+      password: this.passwordInputValue,
+    }
+    this.props.getUserInfo(data)
+    Actions.memberarea()
   }
 
 
   render() {
-    
+
     return (<View style={styles.container}>
       <StatusBar
       barStyle="dark-content"
@@ -48,12 +47,13 @@ export default class LoginForm extends Component {
         placeholder="password"
         placeholderTextColor="white"
         returnKeyType="go"
+        onChangeText={(password) => this.passwordInputValue = password}
         ref={(input) => this.passwordInput = input}
         autoCapitolize={false}
         style={styles.input}
       />
 
-      <TouchableOpacity onPress={() => Actions.memberarea()} style={styles.buttonContiainer}>
+      <TouchableOpacity onPress={() => this.handleLogin()} style={styles.buttonContiainer}>
         <Text style={styles.buttonText}>
           Login
         </Text>
