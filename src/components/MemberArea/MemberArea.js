@@ -1,21 +1,32 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image, KeyboardAvoidingView, } from 'react-native';
 
+// userAge: 0,
+// firstName: '',
+// lastName: '',
+// username: '',
+// email: '',
+// password: '',
+// biologicalSex: '-',
+// Height: '',
+// Weight: '-',
+// StepCount: '-',
+// DateOfBirth: '-',
+// DistanceWalkingRunning: '-',
+// FlightsClimbed: '-'
+
 export default class MemberArea extends Component {
 
   render() {
-    const user = this.props.navigation.state.params.user;
-    const state = this.props.navigation.state.params.props.state
-    console.log(this.props.navigation.state.params.props.state)
+
     return (
       <View style={styles.container}>
-        <Text style={styles.user}>
-          Welcome {user}!
-          Age: {state.userAge}
-          Sex: {state.biologicalSex}
-          Current Step Count: {state.StepCount}
-
-        </Text>
+        <View style={styles.userInfo}>
+          <Text style={styles.user}>Welcome Kyle!</Text>
+          <Text style={styles.small}>Age: </Text>
+          {/* <Text style={styles.sex}>Sex: {state.biologicalSex}</Text> */}
+          <Text style={styles.small}>Yesterday Step Count: </Text>
+        </View>
       </View>
     )
   }
@@ -32,6 +43,9 @@ const styles = StyleSheet.create({
   },
   user: {
     fontSize: 50,
+  },
+  small: {
+    fontSize: 20,
   }
 
 
