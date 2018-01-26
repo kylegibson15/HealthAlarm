@@ -14,6 +14,7 @@ import AppleHealthKit, {
 } from 'rn-apple-healthkit';
 import _ from 'lodash';
 import {Actions} from 'react-native-router-flux';
+import axios from 'axios';
 
 export default class Login extends Component {
   constructor(props) {
@@ -33,13 +34,24 @@ export default class Login extends Component {
       DistanceWalkingRunning: '-',
       FlightsClimbed: '-'
     }
-
-    this.newUserInfo = this.newUserInfo.bind(this)
+    this.newUserInfo = this.newUserInfo.bind(this);
+    this.getUserInfo = this.getUserInfo.bind(this);
   }
+
   newUserInfo(data) {
     this.setState({first_name: data.first_name, last_name: data.last_name, email: data.email, username: data.username, password: data.password});
-    this.getHealthData()
-    this.createAccount(this.state)
+    this.getHealthData();
+  }
+
+  getUserInfo(data) {
+    console.log('LINE 50 LOGIN', data);
+    axios.get('http://localhost:3000/login', {
+      data: data
+      }).then((response) => {
+      console.log(response, 'user logged in');
+    }).catch((err) => {
+      console.log(err, 'user not logged in, try again');
+    });
   }
 
   getYesterdaysDate() {
@@ -114,6 +126,7 @@ export default class Login extends Component {
 
                   getLatestHeight(null, (err, results) => {
                     this.setState({Height: results.value})
+                    this.createAccount(this.state);
                   });
                 });
               });
@@ -125,30 +138,15 @@ export default class Login extends Component {
     });
   }
 
-  async createAccount(new_user) {
-    var url = `'http://localhost:3000/new'`
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({data: new_user})
+  createAccount(info) {
+    axios.post('http://localhost:3000/new', {data: info}).then(response => {
+      console.log(response, 'user added!');
+    }).catch(err => {
+      console.log(err, 'user not added, try again');
     });
-  //   axios.post('/user', {
-  //   firstName: 'Fred',
-  //   lastName: 'Flintstone'
-  // })
-  // .then(function (response) {
-  //   console.log(response);
-  // })
-  // .catch(function (error) {
-  //   console.log(error);
-  // });
   }
 
   render() {
-    console.log('line 152 LOGIN PAGE: ', this.state);
     return (<KeyboardAvoidingView behavior="padding" style={styles.container}>
       <View style={styles.logoContainer}>
         <Text style={styles.title}>HealthAlarm</Text>
@@ -157,10 +155,9 @@ export default class Login extends Component {
       </View>
       <View>
         <Text style={styles.signUp} onPress={() => Actions.signup({newUserInfo: this.newUserInfo})}>
-          {/* , getHealthData: this.getHealthData */}
           Don't have an account? Sign up here
         </Text>
-        <LoginForm state={this.state}/>
+        <LoginForm state={this.state} getUserInfo={this.getUserInfo}/>
       </View>
     </KeyboardAvoidingView>)
   }
