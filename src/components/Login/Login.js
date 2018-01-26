@@ -13,14 +13,15 @@ import AppleHealthKit, {
   getLatestHeight
 } from 'rn-apple-healthkit';
 import _ from 'lodash';
+import {Actions} from 'react-native-router-flux';
 
 export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       userAge: 0,
-      firstName: '',
-      lastName: '',
+      first_name: '',
+      last_name: '',
       username: '',
       email: '',
       password: '',
@@ -29,25 +30,18 @@ export default class Login extends Component {
       Weight: '-',
       StepCount: '-',
       DateOfBirth: '-',
-      StepCount: '-',
       DistanceWalkingRunning: '-',
-      FlightsClimbed: '',
+      FlightsClimbed: '-'
     }
-  }
-  // componentWillMount() {
-  //   var url = `'http://localhost:3000/test'`
-  //   return fetch(url)
-  //   .then((data) => {
-  //     console.log(data.json())
-  //   })
-  // .then((res) => {
 
-  // this.setState({user: res})
-  // })
-  //   .catch(err => {
-  //   res.status(500).json(err)
-  // });
-  // }
+    this.newUserInfo = this.newUserInfo.bind(this)
+  }
+  newUserInfo(data) {
+    this.setState({first_name: data.first_name, last_name: data.last_name, email: data.email, username: data.username, password: data.password});
+    this.getHealthData()
+    this.createAccount(this.state)
+  }
+
   getYesterdaysDate() {
     let iso = new Date().toISOString()
     let split = iso.split('')
@@ -64,7 +58,7 @@ export default class Login extends Component {
     return split.join('');
   }
 
-  componentDidMount() {
+  getHealthData() {
     let options = {
       permissions: {
         read: [
@@ -72,12 +66,10 @@ export default class Login extends Component {
           "Weight",
           "StepCount",
           "DateOfBirth",
-          "StepCount",
           "SleepAnalysis",
           "BiologicalSex",
           "DistanceWalkingRunning",
-          "FlightsClimbed",
-          "ActiveEnergyBurned"
+          "FlightsClimbed"
         ]
       }
     };
@@ -133,8 +125,30 @@ export default class Login extends Component {
     });
   }
 
+  async createAccount(new_user) {
+    var url = `'http://localhost:3000/new'`
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({data: new_user})
+    });
+  //   axios.post('/user', {
+  //   firstName: 'Fred',
+  //   lastName: 'Flintstone'
+  // })
+  // .then(function (response) {
+  //   console.log(response);
+  // })
+  // .catch(function (error) {
+  //   console.log(error);
+  // });
+  }
+
   render() {
-    const {navigate} = this.props.navigation;
+    console.log('line 152 LOGIN PAGE: ', this.state);
     return (<KeyboardAvoidingView behavior="padding" style={styles.container}>
       <View style={styles.logoContainer}>
         <Text style={styles.title}>HealthAlarm</Text>
@@ -142,14 +156,11 @@ export default class Login extends Component {
         <Text style={styles.description}>waking up with a smile on</Text>
       </View>
       <View>
-        <Text style={styles.signUp} onPress={() => navigate('SignUp', {
-            screen: 'SignUp',
-            state: this.state
-          })}>
-
+        <Text style={styles.signUp} onPress={() => Actions.signup({newUserInfo: this.newUserInfo})}>
+          {/* , getHealthData: this.getHealthData */}
           Don't have an account? Sign up here
         </Text>
-        <LoginForm navigation={this.props.navigation} state={this.state}/>
+        <LoginForm state={this.state}/>
       </View>
     </KeyboardAvoidingView>)
   }
