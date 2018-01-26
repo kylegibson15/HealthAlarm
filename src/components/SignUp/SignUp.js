@@ -13,7 +13,6 @@ export default class SignUp extends Component {
         </View>
         <View style={styles.signUpForm}>
           <SignUpForm state={this.props} newUserInfo={this.props.newUserInfo} />
-          {/* getHealthData={this.props.getHealthData} */}
         </View>
       </KeyboardAvoidingView>
     )
