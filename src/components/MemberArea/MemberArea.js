@@ -18,14 +18,16 @@ import { StyleSheet, View, Text, Image, KeyboardAvoidingView, } from 'react-nati
 export default class MemberArea extends Component {
 
   render() {
-
+    const props = this.props.state
     return (
       <View style={styles.container}>
         <View style={styles.userInfo}>
-          <Text style={styles.user}>Welcome Kyle!</Text>
-          <Text style={styles.small}>Age: </Text>
-          {/* <Text style={styles.sex}>Sex: {state.biologicalSex}</Text> */}
-          <Text style={styles.small}>Yesterday Step Count: </Text>
+          <Text style={styles.user}>Welcome {props.first_name}!</Text>
+          <Text style={styles.small}>Here are yesterdays totals</Text>
+          <Text style={styles.small}>Age: {props.userAge}</Text>
+          <Text style={styles.small}>Step Count: {props.StepCount} steps</Text>
+          <Text style={styles.small}>Distance Walked/Run:  {props.DistanceWalkingRunning} miles</Text>
+          <Text style={styles.small}>Flights Climbed: {props.FlightsClimbed} stories</Text>
         </View>
       </View>
     )
@@ -42,9 +44,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#f39c12'
   },
   user: {
+    color: '#2c3e50',
     fontSize: 50,
   },
   small: {
+    color: 'white',
     fontSize: 20,
   }
 
