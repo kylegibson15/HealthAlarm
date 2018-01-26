@@ -21,7 +21,6 @@ export default class SignUpForm extends Component {
       password: this.passwordInputValue,
     }
     this.props.newUserInfo(data)
-    console.log(data);
     Actions.login()
   }
 
