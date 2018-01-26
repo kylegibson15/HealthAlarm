@@ -8,43 +8,55 @@ import {
   TouchableOpacity,
   StatusBar,
 } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 export default class SignUpForm extends Component {
 
-  handleSignUpEvent = (event) => {
-    event.preventDefault();
-    console.log('handleSignUp')
+  giveMeLogs(){
+    let data = {
+      first_name: this.firstNameInputValue,
+      last_name: this.lastNameInputValue,
+      email: this.emailInputValue,
+      username: this.usernameInputValue,
+      password: this.passwordInputValue,
+    }
+    this.props.newUserInfo(data)
+    console.log(data);
+    Actions.login()
   }
 
   render() {
-    const { navigate } = this.props.navigation;
+    console.log('line 22 SIGN UP FORM:', this.props);
     return (<View style={styles.container}>
       <StatusBar
       barStyle="dark-content"
     />
       <TextInput
+        name="first_name"
         placeholder="first name"
         placeholderTextColor="white"
         returnKeyType="next"
         ref={(input) => this.firstNameInput = input}
-        onChangeText={(firstName) => this.firstNameInputValue = firstName}
+        onChangeText={(first_name) => this.firstNameInputValue = first_name}
         onSubmitEditing={() => this.lastNameInput.focus()}
         autoCapitolize={false}
         style={styles.input}
       />
 
       <TextInput
+        name="last_name"
         placeholder="last name"
         placeholderTextColor="white"
         returnKeyType="next"
         ref={(input) => this.lastNameInput = input}
-        onChangeText={(lastName) => this.lastNameInputValue = lastName}
+        onChangeText={(last_name) => this.lastNameInputValue = last_name}
         onSubmitEditing={() => this.emailInput.focus()}
         autoCapitolize={false}
         style={styles.input}
       />
 
       <TextInput
+        name="email"
         placeholder="email"
         placeholderTextColor="white"
         returnKeyType="next"
@@ -57,27 +69,30 @@ export default class SignUpForm extends Component {
       />
 
       <TextInput
+        name="username"
         placeholder="username"
         placeholderTextColor="white"
         returnKeyType="next"
         ref={(input) => this.usernameInput = input}
-        onChangeText={(userame) => this.usernameInputValue = userame}
+        onChangeText={(username) => this.usernameInputValue = username}
         onSubmitEditing={() => this.passwordInput.focus()}
         autoCapitolize={false}
         style={styles.input}
       />
 
       <TextInput
+        name="password"
         secureTextEntry
         placeholder="password"
         placeholderTextColor="white"
         returnKeyType="go"
+        onChangeText={(password) => this.passwordInputValue = password}
         ref={(input) => this.passwordInput = input}
         autoCapitolize={false}
         style={styles.input}
       />
 
-      <TouchableOpacity onPress = {() => this.handleSignUpEvent} onPress = {() => navigate('Login', {screen: 'Login'})} style={styles.buttonContiainer}>
+      <TouchableOpacity onPress = {() => this.giveMeLogs()} style={styles.buttonContiainer}>
         <Text style={styles.buttonText}>
           Sign Up
         </Text>
