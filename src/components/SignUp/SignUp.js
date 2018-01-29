@@ -4,7 +4,6 @@ import SignUpForm from './SignUpForm';
 
 export default class SignUp extends Component {
   render() {
-    console.log('line 7 SIGN UP: ' , this.props);
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <View style={styles.logoContainer}>
