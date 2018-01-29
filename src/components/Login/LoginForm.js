@@ -18,9 +18,8 @@ export default class LoginForm extends Component {
       password: this.passwordInputValue,
     }
     this.props.getUserInfo(data)
-    
-  }
 
+  }
 
   render() {
 
