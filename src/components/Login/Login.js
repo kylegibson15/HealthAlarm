@@ -42,7 +42,7 @@ export default class Login extends Component {
     this.setState({first_name: data.first_name, last_name: data.last_name, email: data.email, username: data.username, password: data.password});
     this.getHealthData();
   }
-
+  
   getUserInfo(data) {
     console.log('LINE 50 LOGIN', data);
     axios.post('https://health-alarm-db.herokuapp.com/login', {
