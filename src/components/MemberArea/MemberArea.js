@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, ScrollView, View, Text, Image, Button, KeyboardAvoidingView} from 'react-native';
 import Dialogflow from 'react-native-dialogflow';
+// import Tts from 'react-native-tts';
 
 
 export default class MemberArea extends Component {
@@ -22,14 +23,31 @@ export default class MemberArea extends Component {
     return distance;
   }
 
+  handleListening() {
+    Dialogflow.startListening(result => {
+      let speech = result.result;
+      console.log('LINE 29 MEMBERAREA',result.result);
+    }, error => {
+      console.log(error.message);
+      handleError(error.message)
+    });
+  }
+
+  handleStopListening(){
+    Dialogflow.finishListening();
+  }
+
+  handleError(err){
+
+  }
+
   render() {
     const props = this.props.state
     return (<ScrollView style={styles.container}>
       <View style={styles.userInfo}>
 
         <View style={styles.firstLastContainer}>
-          <Text style={styles.user}>{props.first_name}
-            {props.last_name}</Text>
+          <Text style={styles.user}>{props.first_name} {props.last_name}</Text>
           <Text style={styles.age}>Age: {props.userAge}</Text>
         </View>
 
@@ -57,8 +75,7 @@ export default class MemberArea extends Component {
 
           <View style={styles.distanceWalkRunContainer}>
             <Text style={styles.small}>
-              {this.twoDecimalPlacesDistanceWalkingRunning()}
-              <Text style={styles.smaller}>miles</Text>
+              {this.twoDecimalPlacesDistanceWalkingRunning()}<Text style={styles.smaller}> miles</Text>
             </Text>
             <Text style={styles.smaller}>Distance Walk/Run</Text>
           </View>
@@ -69,20 +86,18 @@ export default class MemberArea extends Component {
             <Image style={styles.images} source={stairs}/>
           </View>
           <View style={styles.flightsClimbedContainer}>
-            <Text style={styles.small}>{props.FlightsClimbed}
-              <Text style={styles.smaller}>stories</Text>
+            <Text style={styles.small}>{props.FlightsClimbed} <Text style={styles.smaller}>stories</Text>
             </Text>
             <Text style={styles.smaller}>Flights Climbed</Text>
           </View>
         </View>
 
-        {/* <Button title="Google Assistant" onPress={() => {
-            Dialogflow.startListening(result => {
-              console.log(result);
-            }, error => {
-              console.log(error);
-            });
-          }}/> */}
+        <Button title="Google Assistant" onPress={() => {
+            this.handleListening();
+          }}/>
+          <Button title="Stop Assistant" onPress={() => {
+              this.handleStopListening();
+            }}/>
 
       </View>
     </ScrollView>)
@@ -90,12 +105,14 @@ export default class MemberArea extends Component {
 }
 
 var clock = require('../../assets/images/alarm-clock.png');
-var runner = require('../../assets/images/runner.png');
+var runner = require('../../assets/images/running.png');
 var stairs = require('../../assets/images/stairs.png');
-var step = require('../../assets/images/step-heart.png');
+var step = require('../../assets/images/footsteps.png');
+
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#2c3e50'
+    backgroundColor: '#2c3e50',
+    paddingTop: 15,
   },
   logoContainer: {
     flexDirection: 'row',
@@ -125,11 +142,11 @@ const styles = StyleSheet.create({
   },
   totals: {
     color: '#f39c12',
-    fontSize: 25
+    fontSize: 20
   },
   user: {
     color: '#f39c12',
-    fontSize: 50
+    fontSize: 35
   },
   age: {
     color: 'white',
@@ -145,10 +162,6 @@ const styles = StyleSheet.create({
   },
   infoCards: {
     margin: 10,
-    borderWidth: .5,
-    borderColor: '#f39c12',
-    backgroundColor: 'rgba(243, 156, 18, 0.1)',
-    borderRadius: 5,
     padding: .5,
   },
   imageContainer: {
@@ -159,25 +172,40 @@ const styles = StyleSheet.create({
     width: 55,
   },
   stepTextContainer: {
-    marginTop: -5,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
     padding: 5,
+    borderLeftWidth: .5,
+    borderRightWidth: .5,
+    borderBottomWidth: .5,
+    borderColor: '#f39c12',
+    backgroundColor: 'rgba(243, 156, 18, 0.1)',
+    borderRadius: 5,
   },
   distanceWalkRunContainer: {
-    marginTop: -5,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
     padding: 5,
+    borderLeftWidth: .5,
+    borderRightWidth: .5,
+    borderBottomWidth: .5,
+    borderColor: '#f39c12',
+    backgroundColor: 'rgba(243, 156, 18, 0.1)',
+    borderRadius: 5,
   },
   flightsClimbedContainer: {
-    marginTop: -5,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
     padding: 5,
+    borderLeftWidth: .5,
+    borderRightWidth: .5,
+    borderBottomWidth: .5,
+    borderColor: '#f39c12',
+    backgroundColor: 'rgba(243, 156, 18, 0.1)',
+    borderRadius: 5,
   },
   buttonContainer: {
     backgroundColor: '#2c3e50',
