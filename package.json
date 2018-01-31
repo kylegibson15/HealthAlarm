@@ -15,6 +15,7 @@
     "react-native-background-timer": "^2.0.0",
     "react-native-dialogflow": "^2.0.0",
     "react-native-router-flux": "^4.0.0-beta.28",
+    "react-native-tts": "^1.4.1",
     "react-navigation": "^1.0.0-beta.27",
     "rn-apple-healthkit": "^0.6.1"
   },
