@@ -44,9 +44,7 @@ export default class Login extends Component {
   }
 
   getUserInfo(data) {
-    console.log('LINE 50 LOGIN', data);
     axios.post('https://health-alarm-db.herokuapp.com/login', {data: data}).then((response) => {
-      console.log(response, 'user logged in');
       this.setState({
         first_name: response.data[0].first_name,
         last_name: response.data[0].last_name,
@@ -62,7 +60,6 @@ export default class Login extends Component {
         FlightsClimbed: response.data[0].FlightsClimbed,
         userAge: response.data[0].userAge
       });
-      console.log('LINE 53 LOGIN ----->', this.state);
       Actions.memberarea({state: this.state})
     }).catch((err) => {
       console.log(err, 'user not logged in, try again');
