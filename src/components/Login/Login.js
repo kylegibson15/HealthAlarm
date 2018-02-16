@@ -42,12 +42,10 @@ export default class Login extends Component {
     this.setState({first_name: data.first_name, last_name: data.last_name, email: data.email, username: data.username, password: data.password});
     this.getHealthData();
   }
-  
+
   getUserInfo(data) {
     console.log('LINE 50 LOGIN', data);
-    axios.post('https://health-alarm-db.herokuapp.com/login', {
-      data: data
-      }).then((response) => {
+    axios.post('https://health-alarm-db.herokuapp.com/login', {data: data}).then((response) => {
       console.log(response, 'user logged in');
       this.setState({
         first_name: response.data[0].first_name,
@@ -62,7 +60,7 @@ export default class Login extends Component {
         DateOfBirth: response.data[0].DateOfBirth,
         DistanceWalkingRunning: response.data[0].DistanceWalkingRunning,
         FlightsClimbed: response.data[0].FlightsClimbed,
-        userAge: response.data[0].userAge,
+        userAge: response.data[0].userAge
       });
       console.log('LINE 53 LOGIN ----->', this.state);
       Actions.memberarea({state: this.state})
