@@ -1,8 +1,14 @@
 import React, {Component} from 'react';
-import {StyleSheet, ScrollView, View, Text, Image, Button, KeyboardAvoidingView} from 'react-native';
+import {
+  StyleSheet,
+  ScrollView,
+  View,
+  Text,
+  Image,
+  Button,
+  KeyboardAvoidingView
+} from 'react-native';
 import Dialogflow from 'react-native-dialogflow';
-// import Tts from 'react-native-tts';
-
 
 export default class MemberArea extends Component {
   constructor(props) {
@@ -26,20 +32,16 @@ export default class MemberArea extends Component {
   handleListening() {
     Dialogflow.startListening(result => {
       let speech = result.result;
-      console.log('LINE 29 MEMBERAREA',result.result);
     }, error => {
-      console.log(error.message);
       handleError(error.message)
     });
   }
 
-  handleStopListening(){
+  handleStopListening() {
     Dialogflow.finishListening();
   }
 
-  handleError(err){
-
-  }
+  handleError(err) {}
 
   render() {
     const props = this.props.state
@@ -47,7 +49,8 @@ export default class MemberArea extends Component {
       <View style={styles.userInfo}>
 
         <View style={styles.firstLastContainer}>
-          <Text style={styles.user}>{props.first_name} {props.last_name}</Text>
+          <Text style={styles.user}>{props.first_name}
+            {props.last_name}</Text>
           <Text style={styles.age}>Age: {props.userAge}</Text>
         </View>
 
@@ -75,7 +78,8 @@ export default class MemberArea extends Component {
 
           <View style={styles.distanceWalkRunContainer}>
             <Text style={styles.small}>
-              {this.twoDecimalPlacesDistanceWalkingRunning()}<Text style={styles.smaller}> miles</Text>
+              {this.twoDecimalPlacesDistanceWalkingRunning()}<Text style={styles.smaller}>
+                miles</Text>
             </Text>
             <Text style={styles.smaller}>Distance Walk/Run</Text>
           </View>
@@ -86,7 +90,8 @@ export default class MemberArea extends Component {
             <Image style={styles.images} source={stairs}/>
           </View>
           <View style={styles.flightsClimbedContainer}>
-            <Text style={styles.small}>{props.FlightsClimbed} <Text style={styles.smaller}>stories</Text>
+            <Text style={styles.small}>{props.FlightsClimbed}
+              <Text style={styles.smaller}>stories</Text>
             </Text>
             <Text style={styles.smaller}>Flights Climbed</Text>
           </View>
@@ -95,9 +100,9 @@ export default class MemberArea extends Component {
         <Button title="Google Assistant" onPress={() => {
             this.handleListening();
           }}/>
-          <Button title="Stop Assistant" onPress={() => {
-              this.handleStopListening();
-            }}/>
+        <Button title="Stop Assistant" onPress={() => {
+            this.handleStopListening();
+          }}/>
 
       </View>
     </ScrollView>)
@@ -112,7 +117,7 @@ var step = require('../../assets/images/footsteps.png');
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#2c3e50',
-    paddingTop: 15,
+    paddingTop: 15
   },
   logoContainer: {
     flexDirection: 'row',
@@ -162,14 +167,14 @@ const styles = StyleSheet.create({
   },
   infoCards: {
     margin: 10,
-    padding: .5,
+    padding: .5
   },
   imageContainer: {
     alignItems: 'center'
   },
   images: {
     height: 55,
-    width: 55,
+    width: 55
   },
   stepTextContainer: {
     justifyContent: 'center',
@@ -181,7 +186,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: .5,
     borderColor: '#f39c12',
     backgroundColor: 'rgba(243, 156, 18, 0.1)',
-    borderRadius: 5,
+    borderRadius: 5
   },
   distanceWalkRunContainer: {
     justifyContent: 'center',
@@ -193,7 +198,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: .5,
     borderColor: '#f39c12',
     backgroundColor: 'rgba(243, 156, 18, 0.1)',
-    borderRadius: 5,
+    borderRadius: 5
   },
   flightsClimbedContainer: {
     justifyContent: 'center',
@@ -205,7 +210,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: .5,
     borderColor: '#f39c12',
     backgroundColor: 'rgba(243, 156, 18, 0.1)',
-    borderRadius: 5,
+    borderRadius: 5
   },
   buttonContainer: {
     backgroundColor: '#2c3e50',
