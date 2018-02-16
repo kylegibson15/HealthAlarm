@@ -30,7 +30,9 @@ export default class Splash extends Component {
   }
   render() {
     const spin = this.spinValue.interpolate({
-      inputRange: [0, 1],
+      inputRange: [
+        0, 1
+      ],
       outputRange: ['-10deg', '10deg']
     })
     return (<View style={styles.wrapper}>
