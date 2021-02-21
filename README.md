@@ -2,7 +2,7 @@
 
 [HealthAlarm Demo](https://drive.google.com/file/d/1nThHh9q7njguEdHt7p6VkBAzrD6rNU9K/view?usp=sharing)
 
-### This is the frontend UI for the HealthAlarm Google Assistant application (not in store yet).
+### This is the frontend UI for the HealthAlarm Google Assistant application.
 [Built with React-Native](https://facebook.github.io/react-native/)
 
 ![Splash Page](/src/assets/images/splash-page.png)
