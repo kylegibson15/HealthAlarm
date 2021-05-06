@@ -9,7 +9,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "expo": "^25.0.0",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "react": "16.2.0",
     "react-native": "0.52.0",
     "react-native-background-timer": "^2.0.0",
